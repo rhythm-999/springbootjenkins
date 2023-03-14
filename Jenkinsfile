@@ -56,12 +56,12 @@ pipeline {
             }
         }
       stage('deploy') {
-//         input{
-//             message "Select the environment to deploy"
-//             ok "done"
-//             parameters{
-//                 choice(name: 'Type', choices:['Dev','Test','Deploy'], description: '')
-//             }
+        input{
+            message "Select the environment to deploy"
+            ok "done"
+            parameters{
+                choice(name: 'Type', choices:['Dev','Test','Deploy'], description: '')
+            }
 
         }
             steps {
@@ -69,7 +69,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'rhythm999', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]){
                     sh "echo ${PASSWORD} | docker login -u ${USERNAME} --password-stdin"
                     sh "docker push rhythm999/springjenkins_pipeline-:${IMAGE_NAME}"
-                   // sh "docker push rhythm999/springjenkins_pipeline:tagname"
+
                 }}
                 
              }

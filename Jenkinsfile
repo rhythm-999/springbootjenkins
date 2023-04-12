@@ -47,7 +47,7 @@ pipeline {
                     sh 'mvn clean package'
                     def version = (readFile('pom.xml') =~ '<version>(.+)</version>')[0][1]
                     env.IMAGE_NAME = "$version-Build-$BUILD_NUMBER"
-                    sh "docker build -t rhythm999/016:${IMAGE_NAME} ."    
+                    sh "docker build -t rhythm999/springjenkins_pipeline:null-5 ."    
                     }
             }
         }
@@ -75,7 +75,7 @@ pipeline {
                 script{echo 'deploying the application'
                 withCredentials([usernamePassword(credentialsId: 'docker', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]){
                     sh "echo ${PASSWORD} | docker login -u ${USERNAME} --password-stdin"
-                    sh "docker push rhythm999/016:${IMAGE_NAME}"
+                    sh "docker push rhythm999/springjenkins_pipeline:null-5"
                 }}
                 
              }
